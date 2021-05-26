@@ -47,6 +47,12 @@ hr {
     text-decoration: underline;
 }
 
+#timestamp-copy-toast {
+    border: none;
+    position: absolute;
+    bottom: 10px;
+}
+
 /* Mobile */
 @media screen and (max-width: 600px) {
     /* Title Section */
