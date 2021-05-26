@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Dates Time Machine</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap" rel="stylesheet">
+    <script type="module" src="./src/index.js"></script>
+</head>
+<body id="body">
+    <header class="title center">
+        <h1>JS Dates Time Machine</h1>
+        <img src="js-date-time-machine-logo.jpg" alt="Space logo" class="br-50">
+        <p>Get practice working with JavaScript Dates with a tutorial in game-like form.</p>
+        <hr>
+    </header>
+    <nav id="nav" class="center">
+        <p id="launch" class="selected">QUIZ</p>
+        <p id="timestamp">TIMESTAMPS @ RANDOM</p>
+        <p id="practice">PRACTICE</p>
+    </nav>
+    <section id="launch-section" class="center">
+        <form>
+            <p id="launch-prompt"></p>
+            <input id="answer" type="text">
+            <button id="submit" type="submit"></button>
+            <!-- <p id="incorrect" class="warn">That was incorrect. Try again!</p> -->
+            <!-- <div id="congrats" class="panel-section" hidden>CONGRATS! You fixed the JS-ardis!</div> -->
+        </form>
+    </section>
+    <section id="timestamp-section" class="center">
+        <!-- generate another timestamp -->
+        <button id="timestamp-gen">Generate</button>
+        <form>
+            <p id="timestamp-prompt"></p>
+            <p id="timestamp-question"></p>
+            Year:<select id="timestamp-input-yr" type="text"></select>
+            Month:<select id="timestamp-input-mon" type="text"></select>
+            Date:<select id="timestamp-input-dt" type="text"></select>
+            Hr:<select id="timestamp-input-hr" type="text"></select>
+            <button id="timestamp-submit" type="submit">Submit</button>
+        </form>
+        <p id="timestamp-output"></p>
+    </section>
+    <section id="practice-section" class="center">
+        <p id="localtime"></p>
+        <p id="utctime"></p>
+    </section>
+    <dialog id="timestamp-copy-toast"></dialog>
+</body>
+</html>
