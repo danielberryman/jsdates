@@ -1,6 +1,38 @@
 body {
     color: black;
     font-family: 'Saira Condensed', sans-serif;
+    margin: auto;
+    text-align: center;
+    width: 60%;
+}
+  
+#js-editor {
+    min-height: 250px;
+    overflow: scroll;
+    background: rgb(214, 214, 214);
+    color: black;
+    outline: none;
+    font-family: Courier, sans-serif;
+    font-size: 14px;
+    width: 100%;
+}
+
+#js-editor-result {
+    height: 150px;
+    width: 100%;
+}
+
+button {
+    margin: 10px 0;
+}
+
+.block-level {
+    display: block;
+}
+
+iframe {
+    bottom: 0;
+    height: 400px;
 }
 
 hr {
@@ -101,3 +133,4 @@ hr {
     background-color: black;
     color: white;
 }
+

@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Dates Time Machine</title>
+    <title>JavaScript Practice</title>
     <link rel="stylesheet" href="main.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap" rel="stylesheet">
@@ -11,28 +11,35 @@
 </head>
 <body id="body">
     <header class="title center">
-        <h1>JS Dates Time Machine</h1>
-        <img src="js-date-time-machine-logo.jpg" alt="Space logo" class="br-50">
-        <p>Get practice working with JavaScript Dates with a tutorial in game-like form.</p>
+        <h1>JavaScript Practice</h1>
+        <!-- <img src="js-date-time-machine-logo.jpg" alt="Space logo" class="br-50"> -->
+        <p>Generate short practice problems.</p>
         <hr>
     </header>
-    <nav id="nav" class="center">
+    <button id="generate-btn" class="block-level">Generate</button>
+    <textarea id="js-editor" placeholder="JavaScript"></textarea>
+    <button id="submit-btn" class="block-level">Submit</button>
+    <iframe id="js-editor-result"></iframe>
+</body>
+</html>
+
+    <!-- <nav id="nav" class="center">
         <p id="launch" class="selected">QUIZ</p>
         <p id="timestamp">TIMESTAMPS @ RANDOM</p>
         <p id="practice">PRACTICE</p>
-    </nav>
-    <section id="launch-section" class="center">
+    </nav> -->
+    <!-- <section id="launch-section" class="center">
         <form>
             <p id="launch-prompt"></p>
             <input id="answer" type="text">
-            <button id="submit" type="submit"></button>
+            <button id="submit" type="submit"></button> -->
             <!-- <p id="incorrect" class="warn">That was incorrect. Try again!</p> -->
             <!-- <div id="congrats" class="panel-section" hidden>CONGRATS! You fixed the JS-ardis!</div> -->
-        </form>
-    </section>
-    <section id="timestamp-section" class="center">
+        <!-- </form>
+    </section> -->
+    <!-- <section id="timestamp-section" class="center"> -->
         <!-- generate another timestamp -->
-        <button id="timestamp-gen">Generate</button>
+        <!-- <button id="timestamp-gen">Generate</button>
         <form>
             <p id="timestamp-prompt"></p>
             <p id="timestamp-question"></p>
@@ -40,14 +47,18 @@
             Month:<select id="timestamp-input-mon" type="text"></select>
             Date:<select id="timestamp-input-dt" type="text"></select>
             Hr:<select id="timestamp-input-hr" type="text"></select>
-            <button id="timestamp-submit" type="submit">Submit</button>
+            <button id="timestamp-submit">Submit</button>
+            <p><i>Reminder: Don't forget about you local timezone offsets during the year (i.e. EST vs EDT). See 'Practice' tab for more details.</i></p>
         </form>
         <p id="timestamp-output"></p>
+    </section> -->
+    <!-- <section id="practice-section" class="center">
+        <p id="localtime"></p> -->
+        <!-- Add current timeoffset for East Coast EDT vs EST -->
+        <!-- <p id="utctime"></p>
     </section>
-    <section id="practice-section" class="center">
-        <p id="localtime"></p>
-        <p id="utctime"></p>
-    </section>
-    <dialog id="timestamp-copy-toast"></dialog>
-</body>
-</html>
+    <dialog id="timestamp-copy-toast"></dialog> -->
+    <!-- <textarea id="css" placeholder="CSS"></textarea> -->
+<!--     
+
+    <p id="myLog"></p> -->
