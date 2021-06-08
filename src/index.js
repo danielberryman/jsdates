@@ -1,4 +1,4 @@
-import { generateDate } from './modules/js-dates.js';
+import { getDateScriptProperties } from './modules/js-dates.js';
 
 let generateBtn;
 let submitBtn;
@@ -35,7 +35,7 @@ function generateScriptProperties() {
     // Steps
     // 1. Determine which script you need to generate (for now this will simply be a date script)
     // skip for now
-    scriptProperties = generateDate();
+    scriptProperties = getDateScriptProperties();
     
     // save current editor results html and js
     jsEditorResultHTML = scriptProperties.setupHTML;
