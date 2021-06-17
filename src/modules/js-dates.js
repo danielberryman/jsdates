@@ -10,7 +10,6 @@ import {
 import {
     newline,
     dblNewline,
-    space,
     variableStatement,
     dateAssignment,
     dateVariables,
@@ -38,6 +37,7 @@ let jsScriptString;
 let resultJSString;
 let dateProperties = {
     constructor: '',
+    saniConstructor: '',
     questionText: '',
     yearFn: '',
     monthFn: '',
@@ -79,6 +79,7 @@ function getDateProperties() {
     //      Type of testing: utc or local
     generateDate();
     console.log(dateProperties.constructor);
+    console.log(dateProperties.saniConstructor);
     generateQuestion();
     console.log(dateProperties.questionText);
     getFns();
@@ -88,28 +89,53 @@ function getDateProperties() {
         // errorMsg
         //      Future upgrade: reasons why this might have failed; this would be a grerat beginner PR for newbies
     getCorrectResults();
-    console.log(dateProperties.correctResults);
+    // console.log(dateProperties.correctResults);
         // correctResults
 }
 
 function constructScriptString() {
-    return  dateAssignment + dateProperties.constructor + dblNewline + space +
-            dateProperties.questionText + newline +
-            variableStatement + dblNewline +
-            dateVariables;
+    return `// SETUP` + newline +
+        `let dateObject = ${dateProperties.saniConstructor};` + dblNewline +
+        `let cYear = dateObject.${dateProperties.yearFn}();` + newline +
+        `let cMon = dateObject.${dateProperties.monthFn}();` + newline +
+        `let cDate = dateObject.${dateProperties.dateFn}();` + newline +
+        `let cHour = dateObject.${dateProperties.hourFn}();` + dblNewline +
+        `// QUESTION:` + newline +
+        `// ${dateProperties.questionText}` + dblNewline +
+        `// INPUT ANSWERS HERE:` + newline +
+        `let year = ;` + newline +
+        `let mon = ;` + newline +
+        `let date = ;` + newline +
+        `let hour = ;` + dblNewline + dblNewline + dblNewline + dblNewline + dblNewline + dblNewline +
+        `// CALCULATE RESULTS (You can mess with this if you want but there's no need)` + newline +
+        `document.getElementById('year').innerHTML = 'Correct Year: ' + cYear + ' / Your Answer: ' + year;` + newline +
+        `document.getElementById('month').innerHTML = 'Correct Month: ' + cMon + ' / Your Answer: ' + mon;` + newline +
+        `document.getElementById('date').innerHTML = 'Correct Date: ' + cDate + ' / Your Answer: ' + date;` + newline +
+        `document.getElementById('hour').innerHTML = 'Correct Hour: ' + cHour + ' / Your Answer: ' + hour;` + dblNewline +
+        `let resultEl = document.getElementById('result');` + newline +
+        `if (cYear == year && cMon == mon && cDate == date && cHour == hour) {` + newline +
+        `   resultEl.innerHTML = 'Correct!';` + newline + 
+        `} else {` + newline +
+        `   resultEl.innerHTML = 'Incorrect.';` + newline +
+        `}`;
 }
 
 function constructResultString() {
-    return  'let resultYear = dateObject.' + dateProperties.yearFn + '() == ' + year + ';' +
-            'let resultMonth = dateObject.' + dateProperties.monthFn + '() == ' + month + ';' +
-            'let resultDate = dateObject.' + dateProperties.dateFn + '() == ' + date + ';' +
-            'let resultHour = dateObject.' + dateProperties.hourFn + '() == ' + hour + ';' +
-            'let el = document.getElementById(\'result\');' +
-            'if (resultYear && resultMonth && resultDate && resultHour) {' +
-                'el.innerHTML = ' + dateProperties.successMsg + dblNewline + dateProperties.correctResults + ';' +
-            '} else {' +
-                'el.innerHTML = ' + dateProperties.errorMsg + dblNewline + dateProperties.correctResults + ';' +
-            '}';
+    return  `let msg;\n` +
+            `let correctYear = dateObject.` + dateProperties.yearFn + `();\n` +
+            `let correctMonth = dateObject.` + dateProperties.monthFn + `();\n` +
+            `let correctDate = dateObject.` + dateProperties.dateFn + `();\n` +
+            `let correctHour = dateObject.` + dateProperties.hourFn + `();\n` +
+            'let resultYear = correctYear == year;\n' +
+            'let resultMonth = correctMonth == month;\n' +
+            'let resultDate = correctDate == date;\n' +
+            'let resultHour = correctHour == hour;\n' +
+            // 'let el = document.getElementById(\'result\');\n' +
+            'if (resultYear && resultMonth && resultDate && resultHour) {\n' +
+                'msg = "' + dateProperties.successMsg + '";\n' +
+            '} else {\n' +
+                'msg = "' + dateProperties.errorMsg + '";\n' +
+            '}\n';
 }
 
 function generateDate() {
@@ -123,10 +149,10 @@ function generateDate() {
     let dateStr = null;
     if (t == 'string' || isLowestTimestampType(t)) {
         dateStr = getRandomTimestampStringInput();
-        date = 'new Date(new Date(' + dateStr + '))';
+        date = 'new Date(' + dateStr + ')';
         dateType = 'string';
     } else if (t == 'now') {
-        date = 'Date.now()';
+        date = 'new Date(Date.now())';
         dateType = 'now';
     } else {
         let ints = getRandomTimstampNumberInput();
@@ -140,7 +166,8 @@ function generateDate() {
             dateType = 'utc';
         }
     }
-    dateProperties.constructor = date; 
+    dateProperties.constructor = dateProperties.saniConstructor = date;
+    if (dateType != 'now') { dateProperties.saniConstructor = sanitizeDateConstructor(date) };
     // Note: lowercase o(s) are added after leading zero
     // Modules run in strict mode by default and this doesn't allow octal literals
 }
@@ -181,12 +208,31 @@ function getErrorMessage() {
     
 function getCorrectResults() {
     let date = dateProperties.constructor;
-    if (dateType != 'number') {
-        date = sanitizeDateConstructor(dateProperties.constructor);
+    if (dateType == 'string') {
+        date = dateProperties.saniConstructor;
     }
     dateProperties.correctResults = 
         'Year: ' + eval(date + '.' + dateProperties.yearFn + '()') + ',\n' +
         'Month: ' + eval(date + '.' + dateProperties.monthFn + '()') + ',\n' +
         'Date: ' + eval(date + '.' + dateProperties.dateFn + '()') + ',\n' +
         'Hour: ' + eval(date + '.' + dateProperties.hourFn + '()');
+}
+
+export function constructFullJSScript(date, fns, question) {
+    return `let dateObject = ${date};` + dblNewline +
+        `let cYear = dateObject.${fns.year}();` + newline +
+        `let cMon = dateObject.${fns.month}();` + newline +
+        `let cDate = dateObject.${fns.date}();` + newline +
+        `let cHour = dateObject.${fns.hour}();` + dblNewline +
+        `${question}` + dblNewline +
+        `let year = ;` + newline +
+        `let mon = ;` + newline +
+        `let date = ;` + newline +
+        `let hour = ;` + dblNewline +
+        `document.getElementById('year').innerHTML = 'Correct Year: ' + cYear + ' / Your Answer: ' + year` + newline +
+        `document.getElementById('month').innerHTML = 'Correct Year: ' + cMon + ' / Your Answer: ' + mon` + newline +
+        `document.getElementById('date').innerHTML = 'Correct Year: ' + cDate + ' / Your Answer: ' + date` + newline +
+        `document.getElementById('hour').innerHTML = 'Correct Year: ' + cHour + ' / Your Answer: ' + hour` + dblNewline +
+        `let result = document.getElementById('result').innerHTML;` + newline +
+        `result.value = (cYear == year && cMon == mon && cDate == date && cHour == hour) ? 'Correct' : 'Incorrect'`;
 }

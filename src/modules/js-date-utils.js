@@ -57,7 +57,7 @@ export function getRandomInt(max, offset) {
 export function transformIntsToDblDigStrs(ints) {
     let newIntStrs = [];
     for (let int of ints) {
-        let newIntStr = (int < 10) ? transformIntToDblDigitStr(int) : int;
+        let newIntStr = (int < 8) ? transformIntToDblDigitStr(int) : int;
         newIntStrs.push(newIntStr);
     }
     return newIntStrs;
@@ -74,7 +74,7 @@ function getRandomIsoDtTimeRelStr() {
 function getRandomShortDtString() {
     let i = getRandomInt(2);
     if (i == 0) {
-        return `${transformIntToDblDigitStr(getRandomInt(13,1))}/${transformIntToDblDigitStr(getRandomInt(31))}/${getRandomInt(51,1970)}`;
+        return `${transformIntToDblDigitStr(getRandomInt(12,1))}/${transformIntToDblDigitStr(getRandomInt(31))}/${getRandomInt(51,1970)}`;
     } else {
         return `${getRandomInt(51,1970)}`;
     }
@@ -83,13 +83,13 @@ function getRandomShortDtString() {
 function getRandomLongDtString() {
     let i = getRandomInt(4);
     if (i == 0) {
-        return `${monthFullNames[getRandomInt(13)]} ${transformIntToDblDigitStr(getRandomInt(31))} ${getRandomInt(51,1970)}`;
+        return `${monthFullNames[getRandomInt(12)]} ${transformIntToDblDigitStr(getRandomInt(31))} ${getRandomInt(51,1970)}`;
     } else if (i == 1) {
-        return `${transformIntToDblDigitStr(getRandomInt(31))} ${monthFullNames[getRandomInt(13)]} ${getRandomInt(51,1970)}`;
+        return `${transformIntToDblDigitStr(getRandomInt(31))} ${monthFullNames[getRandomInt(12)]} ${getRandomInt(51,1970)}`;
     } else if (i == 2) {
-        return `${monthShortNames[getRandomInt(13)]} ${transformIntToDblDigitStr(getRandomInt(31))} ${getRandomInt(51,1970)}`;
+        return `${monthShortNames[getRandomInt(12)]} ${transformIntToDblDigitStr(getRandomInt(31))} ${getRandomInt(51,1970)}`;
     } else {
-        return `${transformIntToDblDigitStr(getRandomInt(31))} ${monthShortNames[getRandomInt(13)]} ${getRandomInt(51,1970)}`;
+        return `${transformIntToDblDigitStr(getRandomInt(31))} ${monthShortNames[getRandomInt(12)]} ${getRandomInt(51,1970)}`;
     }
     // Long: Mon DD YYYY
     // Long2: DD Mon YYYY
@@ -100,9 +100,9 @@ function getRandomLongDtString() {
 function getRandomIsoDtStr() {
     let i = getRandomInt(3);
     if (i == 0) {
-        return `${getRandomInt(51,1970)}-${transformIntToDblDigitStr(getRandomInt(13,1))}-${transformIntToDblDigitStr(getRandomInt(31))}`;
+        return `${getRandomInt(51,1970)}-${transformIntToDblDigitStr(getRandomInt(12,1))}-${transformIntToDblDigitStr(getRandomInt(31))}`;
     } else if (i == 1) {
-        return `${getRandomInt(51,1970)}-${transformIntToDblDigitStr(getRandomInt(13,1))}`;
+        return `${getRandomInt(51,1970)}-${transformIntToDblDigitStr(getRandomInt(12,1))}`;
     } else {
         return `${getRandomInt(51,1970)}`;
     }
@@ -114,7 +114,7 @@ function getRandomTime() {
     for (let i = 0; i < ln; i++) {
         let int = null;
         if (i == 0) {
-            int = getRandomInt(25);
+            int = getRandomInt(24);
         } else {
             int = getRandomInt(60);
         }

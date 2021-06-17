@@ -3,10 +3,31 @@ body {
     font-family: 'Saira Condensed', sans-serif;
     margin: auto;
     text-align: center;
-    width: 60%;
+    width: 90%;
+}
+
+textarea {
+    width: 33%;
+    min-height: 325px;
+    overflow: scroll;
+    background: #f4f4f9;
+    outline: none;
+    font-family: Courier, sans-serif;
+    font-size: 14px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+#html-editor {
+    width: 35%;
+}
+#js-editor {
+    width: 64%;
 }
   
-#js-editor {
+/* #js-editor {
     min-height: 250px;
     overflow: scroll;
     background: rgb(214, 214, 214);
@@ -15,10 +36,10 @@ body {
     font-family: Courier, sans-serif;
     font-size: 14px;
     width: 100%;
-}
+} */
 
 #js-editor-result {
-    height: 150px;
+    height: 125px;
     width: 100%;
 }
 

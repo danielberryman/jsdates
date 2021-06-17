@@ -1,8 +1,10 @@
 import { getDateScriptProperties } from './modules/js-dates.js';
+import { htmlBase } from './modules/js-date-constants.js';
 
 let generateBtn;
 let submitBtn;
 let jsEditor;
+let htmlEditor;
 let jsEditorResult;
 let jsEditorResultHTML;
 let jsEditorResultJS;
@@ -21,7 +23,8 @@ function setElementVars() {
     generateBtn = document.getElementById('generate-btn');
     submitBtn = document.getElementById('submit-btn');
     jsEditor = document.getElementById('js-editor');
-    jsEditorResult = document.getElementById('js-editor-result').contentWindow.document;
+    htmlEditor = document.getElementById('html-editor');
+    jsEditorResult = document.getElementById('js-editor-result');
 }
     
 function setElementProps() {
@@ -40,30 +43,39 @@ function generateScriptProperties() {
     // save current editor results html and js
     jsEditorResultHTML = scriptProperties.setupHTML;
     // currently for dates I'm only doing 1 thing so this doesn't matter
-    if (!jsEditorResultJS) {
-        jsEditorResultJS = scriptProperties.setupJS;
-    }
+    jsEditorResultJS = scriptProperties.setupJS;
 
     // update iframe document
-    updateJsEditorResultsDocument(jsEditorResultHTML, jsEditorResultJS);
+    // I don't think I need to do this at all here...
+    // let url = getGeneratedPageURL(jsEditorResultHTML, jsEditorResultJS)
+    // jsEditorResult.src = url;
+    // console.log(url);
 
     // add js script to the editor
     jsEditor.value = scriptProperties.jsScript;
+    htmlEditor.value = htmlBase(scriptProperties.resultHTML);
 }
 
 function processSubmit() {
     // add the results html to iframe
-    let html = scriptProperties.resultHTML;
-    let js = (jsEditor.value + scriptProperties.resultJS);
+    let html = htmlEditor.value;
+    let js = jsEditor.value;
+        // (jsEditorResultJS + jsEditor.value + scriptProperties.resultJS + 
+        // `let message = document.getElementById('result');\nmessage.innerHTML = msg;\n` +
+        // `let messageYear = document.getElementById('year');\nmessageYear.innerHTML = 'Correct Year: ' + correctYear;\n` +
+        // `let messageMonth = document.getElementById('month');\nmessageMonth.innerHTML =  'Correct Month: ' + correctMonth;\n` +
+        // `let messageDate = document.getElementById('date');\nmessageDate.innerHTML = 'Correct Date: ' + correctDate;\n` +
+        // `let messageHour = document.getElementById('hour');\nmessageHour.innerHTML = 'Correct Hour: ' + correctHour;\n` +
+        // `console.log(msg);` +
+        // `console.log(resultYear);` +
+        // `console.log(resultMonth);` +
+        // `console.log(resultDate);` +
+        // `console.log(resultHour);`
 
     // add the html and js to the iframe document
-    updateJsEditorResultsDocument(html, js);
-}
-
-function updateJsEditorResultsDocument(html, js) {
-    jsEditorResult.open();
-    jsEditorResult.writeln(html+'<script>'+js+'</script>');
-    jsEditorResult.close();
+    let url = getGeneratedPageURL(html, js);
+    jsEditorResult.src = url;
+    console.log(url);
 }
 
 function clearEditor() {
@@ -74,12 +86,21 @@ function clearResults() {
     jsEditorResult = document.implementation.createHTMLDocument();
 }
 
+const getGeneratedPageURL = (html, js) => {
+    const getBlobURL = (code, type) => {
+      const blob = new Blob([code], { type })
+      return URL.createObjectURL(blob)
+    }
+  
+    const jsURL = getBlobURL(js, 'text/javascript')
+  
+    const source = 
+        html.substring(0,13) +
+        `${js && `  <script src="${jsURL}" defer></script>`}` +
+        html.substring(13);
 
-
-
-
-
-
+    return getBlobURL(source, 'text/html')
+}
 
 // VARIABLES
 // const monthFullNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

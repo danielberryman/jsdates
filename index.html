@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Practice</title>
+    <title>JavaScript Dates</title>
     <link rel="stylesheet" href="main.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap" rel="stylesheet">
@@ -11,12 +11,19 @@
 </head>
 <body id="body">
     <header class="title center">
-        <h1>JavaScript Practice</h1>
+        <h1>JavaScript Dates</h1>
         <!-- <img src="js-date-time-machine-logo.jpg" alt="Space logo" class="br-50"> -->
-        <p>Generate short practice problems.</p>
+        <h3>Do you know what timestamp a Date object in JavaScript will return?</h3>
+        <p>This app will generate a Date constructor in JavaScript. It will then ask you what year, month, date, and hour
+            will be returned when local methods or UTC methods are called on the Date object. Good luck! Also, this is
+            a JS editor so feel free to manipulate whatever you want! But BEWARE...if you click generate all will disappear
+            and you'll see a new Date problem.
+        </p>
         <hr>
     </header>
     <button id="generate-btn" class="block-level">Generate</button>
+    <textarea id="html-editor" placeholder="HTML"></textarea>
+    <!-- <textarea id="css-editor" placeholder="CSS"></textarea> -->
     <textarea id="js-editor" placeholder="JavaScript"></textarea>
     <button id="submit-btn" class="block-level">Submit</button>
     <iframe id="js-editor-result"></iframe>
